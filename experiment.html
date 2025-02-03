@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Element</title>
+    <link href="https://caniuse.com/mathml" rel = "source">
+    
+
+</head>
+<body>
+
+    <hello-world></hello-world>
+
+    <script>
+        class HelloWorld extends HTMLElement {
+            constructor() {
+                super();
+                console.log("Hello world!");
+            }
+        }
+        customElements.define('hello-world', HelloWorld);
+    </script>
+<p>CHAT GPT was invovled in creating the hello world</p>
+
+<p><math>
+    <mn>E</mn>
+    <mo>=</mo>
+    <mn>m</mn>
+    <msup>
+    
+    <mo>c</mo>
+    <mn>2</mn>
+    </msup></math></p>
+
+<p>Extra credit question 2: looking at the site, it seems that firefox was the only browser where MathML would work on all versions. This implies MathML
+    was made only with the webbrowser firefox in mind.
+</p>
+<iframe></iframe>
+<textarea>This is a textarea</textarea>
+</body>
+</html>
