@@ -1,0 +1,77 @@
+:root
+{
+    --color1: whitesmoke;
+    --color3: white;
+    --color4: color(srgb 0.7 0.7 0.7);
+ 
+
+    
+}
+@font-face {
+    font-family: 'firstfont';
+    src: url('./font/Sansation_Regular.ttf') format('truetype');
+    font-display: swap;
+    
+}
+
+.box
+{
+    background-color: var(--color1, white);
+    place-self:center;
+    text-align:center;
+    font-family: 'firstfont', 'Times New Roman', serif;
+
+       
+       
+    
+}
+
+
+
+.box:hover
+{
+ 
+  background-color:var(--color4, white);
+}
+
+.grid
+{
+grid-template-rows:auto auto auto;
+display: grid;
+background-color: var(--color3,white);
+row-gap: 5px;
+column-gap: 5px;
+padding: 5px;
+
+/*nested loop example*/
+
+& nav
+{
+    text-align: center;
+    place-self: center;  
+    padding: 10px 20px;
+    background-color: var(--color4, red);
+  
+    
+}
+
+
+}
+
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+    .box {
+      margin-top: 60px !important;
+   
+    }
+  }
+
+   /*general stuff*/
+   @media screen and (max-width: 480px) {
+    .header p {
+      font-size: 18px;
+    }
+    
+    .middle p {
+      font-size: 14px;
+    }
+  }

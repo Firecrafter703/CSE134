@@ -1,0 +1,168 @@
+:root {
+    --color1: plum;
+    --color2: color-mix(in srgb, purple 40%, white);
+    --color3: darkgray;
+    --color4: green;
+  }
+ 
+
+  html, body {
+    margin: 0;
+    padding: 5dvh;
+  }
+
+  body.grid-container {
+    display: grid;
+    grid-template-areas:
+      "header"
+      "middle"
+      "footer";
+    grid-template-rows: auto 1fr auto;
+    min-height: 100dvh;
+    background-color: #f0e6ba;
+    font-family: 'firstfont', Arial, sans-serif;
+    
+  }
+ 
+  @font-face {
+    font-family: 'firstfont';
+    src: url('./font/Sansation_Regular.ttf') format('truetype');
+    font-display: swap;
+  }
+ 
+ 
+  .header {
+   
+    text-align: center;
+    background-color: var(--color3, grey);
+    grid-area: header;
+    padding: 15px 0;
+    color: white;
+  }
+ 
+  .nav {
+    text-align: center;
+  }
+ 
+  .nav a {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+  }
+
+ 
+  .rotate img {
+    max-width: 150px;
+    display: block;
+    margin: 0 auto;
+  }
+ 
+  .middle {
+    background-color: #E8DCA0;
+    text-align: center;
+    grid-area: middle;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+   
+  }
+
+  .list {
+    background-color: var(--color1, lavender);
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+  }
+ 
+  dl.list {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+  }
+ 
+  dt {
+    margin-bottom: 10px;
+  }
+ 
+
+  footer {
+    text-align: center;
+    grid-area: footer;
+    padding: 15px 0;
+    background-color: #f0e6ba;
+  }
+ /*i pad*/
+
+ @media screen and (min-width: 768px) and (max-width: 1024px) {
+  .middle {
+    min-height: 0 !important;
+    height: auto !important;
+    margin-top: 140px;
+  }
+ 
+  .body {
+    display: flex !important;
+    flex-direction: column !important;
+    margin-top: 40px;
+  }
+ 
+  footer {
+    margin-top: 40px;
+    margin-top: auto !important;
+  }
+
+
+  .list
+  {   margin-top: 40px;
+      height:auto;
+  }
+}
+
+/*i phone*/
+
+@media screen and (min-width: 340px) and (max-width:760) {
+    body.grid-container {
+      max-width: 414px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      padding: 15px 10px;
+    }
+    
+    .nav a {
+      margin: 0 5px;
+      font-size: 14px;
+    }
+    
+    .rotate img {
+      max-width: 120px;
+    }
+    
+    .middle {
+      margin-top: 20px;
+      padding: 15px;
+    }
+    
+    .list {
+      margin-top: 15px;
+      padding: 12px;
+    }
+    
+    footer {
+      margin-top: 20px;
+      padding: 12px;
+    }
+  }
+  
+ /*general stuff*/
+  @media screen and (max-width: 480px) {
+    .header p {
+      font-size: 18px;
+    }
+    
+    .middle p {
+      font-size: 14px;
+    }
+  }

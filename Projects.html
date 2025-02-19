@@ -1,72 +1,78 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset = "UTF-8">
     <title>LIST OF PROJECTS</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="Projectscss.css">
         
 
-    <style>
-
-    freecolor {
-        background-color: yellow;
-        text-align: center;
-      }
-    </style>
+    
     
 </head>
 
+<body class = "grid" data-v-scope >
 
-
-<body>
-    <a href="Projects.html">Projects</a>
-    <a href="Experience.html">Experience</a>
-    <a href="experiment.html">Experiments</a>
     
-        <noscript>You dont have JavaScript!</noscript>
-        <h1>Projects</h1> 
-   
-        <script>
 
-        </script>
-        <button onclick="showContent()">Show hidden content that currently isnt implemented</button>
-        <template>
-            <h2>Robots</h2>
-            <img src="" width="214" height="204">
-          </template>
-    <div>   
+     
+   <div class = "header" data-v-scope>
+        <h1>My Projects</h1>
+       
+        <noscript>You dont have JavaScript!</noscript> 
+
+        <nav class = nav data-v-scope>
+            
+            <a href="Projects.html">Projects</a>
+            <a href="index.html">Index</a>   
+            <a href="Experience.html">Experience</a>
+
+        </nav>
+   </div>
+        
+
+    
+
+    <section class = box data-v-scope>
+
         <hgroup>
-            <h2><span style = "color:red" >Combat Robot</span></h2>
+            <h2><span>Combat Robot</span></h2>
             <p>The Combat Robot I made was part of the <b>combat robotics club</b>. I learned many important skills form there, such as how to solder and 3d print.</p>
             
         </hgroup>
         
             <h3>What the Combat Robotics club is</h3>
-            s<aside>The combat robotics club is a club where one creates their own robot and competes. We have intro's for newcomers the start of every quarter at <i>week 1</i>, <br> located at dib makerspace room.</aside>
-        
-        <section>
-            <h2><span style = "color:blue">DonkeySim Robot</span></h2>
-            <nav><a href="https://ucsd-ecemae-148.github.io/markdown-documentation/50-Virtual-Machine-with-DonkeyCar-AI-Simulator/50-Virtual-Machine-and-DonkeyCar-AI-Simulator/">Website</a> |</nav>
+            <aside>The combat robotics club is a club where one creates their own robot and competes. We have intro's for newcomers the start of every quarter at <i>week 1</i>, <br> located at dib makerspace room.</aside>
+             <p>Currently there is a recent competitoin where people get to go to UC Irvine and compete their combat robo with other students from there. While I was unable to go because I am busy with college work, I want people to check it out.</p>
+             <p><b>This is shameless advertising, please come if you are tired of web development</b></p>
+    </section>
+    <section class = box data-v-scope>
+       <picture><img src="IMG_2535.jpg" alt = "A screenshot of a combat robot" data-v-scope> </picture> 
+    </section>
+            
+        <section class = box  data-v-scope>
+            <h2><span>DonkeySim Robot</span></h2>
+            <a href="https://ucsd-ecemae-148.github.io/markdown-documentation/50-Virtual-Machine-with-DonkeyCar-AI-Simulator/50-Virtual-Machine-and-DonkeyCar-AI-Simulator/">Website</a>
             <p>This robot is a <strong>autonomous</strong> robot that was created to make 3 automous laps by itself.</p>
             <label>Skills Used</label>
             <ul>
                 <li>Soldering</li>
                 <li>Linux</li>
+                <li>Onshape</li>
 
             </ul>
-           
+           <p>Our team plans to implement GPS laps and laps involving ROS code for this autonomous robot.</p>
             
         </section>
-    </div> 
 
-<em>Submit what was your favorite project out of all of these(this feature is work in progress):</em>
-    <select>
-        <option>Combat Robot</option>
-        <option>DonkeySim Robot</option>
+        
+        <section class = box data-v-scope>
+            <picture><img src="IMG_2814.jpg" alt = "robocar" data-v-scope></picture>
+        </section>
 
-       
-    </select>
+
 
 
 

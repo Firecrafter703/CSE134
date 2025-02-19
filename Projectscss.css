@@ -1,0 +1,143 @@
+:root[data-v-scope]
+{
+    --color1: white;
+    --color2: red;
+    --color3: orange;
+    --color4: color-mix(in srgb, blue 80%, black);
+    --color5: purple;
+ 
+
+    
+}
+.a
+{
+    color:white
+}
+@font-face {
+    font-family: 'firstfont';
+    src: url('./font/Sansation_Regular.ttf') format('truetype');
+    font-display: swap;
+    
+}
+.header[data-v-scope]
+{   grid-column: 1 / -1;
+    text-align: center;
+    background-color:var(--color1, white);
+    font-family: 'firstfont', 'Times New Roman', serif;
+
+}
+
+.nav[data-v-scope]
+{
+    text-align: center;
+    background-color:var(--color1,white);
+
+}
+
+.grid[data-v-scope]
+{
+grid-template-columns:85% 15%;
+display: grid;
+background-color: var(--color2, red);
+row-gap: 5px;
+column-gap: 5px;
+padding: 5px;
+border:7px solid var(--color3, magenta)
+
+
+
+
+}
+
+
+@keyframes animation {
+    0%   {background-color: var(--color4, blue);}
+    50%  {
+         background-color: var(--color5, purple);
+         transform: rotate(180deg);
+        }
+    100% {background-color:var(--color4, blue);}
+  }
+
+.box[data-v-scope]
+{
+    border: 2px solid  var(--color5, purple);
+    background-color:var(--color4, blue);
+    overflow: hidden;  
+    animation-name: animation;
+    animation-duration: 3s;
+    animation-iteration-count:1;
+    color:white;
+
+
+
+}
+
+
+
+.box:has(> img:only-child)[data-v-scope] {
+    padding: 0;
+}
+
+
+.box img[data-v-scope] {   
+    width: 100%;
+    height: auto;
+    display: block;
+  
+    object-fit: cover;
+    padding: 0;
+ 
+}
+
+ /*i pad*/
+
+ @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .grid[data-v-scope]
+    {
+        grid-template-columns:70% 30%;
+        row-gap: 80px;
+    }
+    .box img[data-v-scope] {   
+        width: 100%;
+        height: 100%;
+        display: block;
+      
+        object-fit: fill;
+        padding: 0;
+     
+    }
+
+    .box p[data-v-scope]
+    {
+        font-size: 14px;
+    }
+  }
+
+  
+ @media screen and (min-width: 360px) and (max-width: 430px) {
+    .grid[data-v-scope]
+    {
+        grid-template-columns:65% 35%;
+        flex-direction: column;
+        row-gap: 80px;
+    
+    }
+    .box[data-v-scope]
+    {
+        flex:0 0 100%;
+        
+    }
+    .box img[data-v-scope] {   
+        width: 100%;
+        height: 100%;
+        display: block;
+      
+        object-fit: fill;
+        padding: 0;
+     
+    }
+
+
+   
+  }
