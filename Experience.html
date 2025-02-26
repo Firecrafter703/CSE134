@@ -4,7 +4,7 @@
 <head>
     <meta charset = "UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIST OF PROJECTS</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="Experiencecss" href="Experiencecss.css">
     <style>
         @import "Experiencecss.css";
         </style>
@@ -80,8 +80,70 @@
 
 </section>
 
+<section class = "box">
+
+    
+<form action = "https://httpbin.org/post" method = "POST">
+    <fieldset>
+    <label for = "fullname">Full name:</label>
+    <input type = "text" id = "fullname" name = "fullname" required>
+    <label for = "email">Email</label>
+    <input type = "email" id = "email" name = "email" required>
+    <label for = "comment">Comment:</label>
+    <input type = "text" id = "comment" name = "comment" required>
+
+
+
+
+
+    </fieldset>
+    <button>submit</button>
+    <input type="hidden"/>
+</form>
+
+</section>
 
 </body>
 
+<div class ="grid">
+
+    <form action = "https://httpbin.org/post" method = "POST">
+        <fieldset>
+        <section class = box>
+        <label for = "fullname">Full name:</label>
+        </section>
+        <section class = box>
+        <input type = "text" id = "fullname" name = "fullname" required>
+        </section>
+        <section class = box>
+        <label for = "email">Email</label>
+        </section>
+        <section class = box>
+        <input type = "email" id = "email" name = "email" required>
+        </section>
+        <section class = box>   
+        <label for = "comment">Comment:</label>
+        </section>
+        <section class = box>
+        <input type = "text" id = "comment" name = "comment" required>
+        </section>
+    
+    
+    
+    
+        </fieldset>
+        <section class = box>
+        <button>submit</button>
+        <input type="hidden" name="possible_bot" value="true"/>
+        <output name="errorOutput" for="fullname email comment" class="error" id="errorOutput"></output>
+        <output name="infoOutput" for="fullname email comment" class="info" id="infoOutput"></output>
+    </section>
+
+    </form>
+
+   
+       
+
+</div>
 
 </html>
