@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset = "UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIST OF PROJECTS</title>
+    <link rel="Experiencecss" href="Experiencecss.css">
+    <style>
+        @import "Experiencecss.css";
+     
+        </style>
+   
+</head>
+<script>
+   
+   document.addEventListener("DOMContentLoaded", function () {
+    //constant for form elements
+    const form = document.querySelector("form");
+    const fullname = document.getElementById("fullname");
+    const email = document.getElementById("email");
+    const comment = document.getElementById("comment");
+    const errorOutput = document.getElementById("errorOutput");
+    const infoOutput = document.getElementById("infoOutput");
+    
+    
+    let form_errors = [];
+    
+    //maxlength attribute value
+    const maxLength = comment.getAttribute("maxlength") || 30; 
+    
+   
+
+    //validation
+    const patterns = {
+        fullname: /^[A-Za-z ]+$/,
+        email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        comment: /^[A-Za-z0-9.,!? ]+$/
+    };
+
+    //characters allowed
+    const inputPatterns = {
+        fullname: /[A-Za-z ]/,
+        email: /[a-zA-Z0-9._%+-@]/,
+        comment: /[A-Za-z0-9.,!? ]/
+    };
+
+    //error messages
+    const errorMessages = {
+        fullname: "Only letters and spaces here",
+        email: "Not a valid email",
+        comment: "character not allowed to comments"
+    };
+
+     //input masking to all fields
+    addInputMasking(fullname, inputPatterns.fullname, errorMessages.fullname);
+    addInputMasking(email, inputPatterns.email, errorMessages.email);
+    addInputMasking(comment, inputPatterns.comment, errorMessages.comment);
+
+    //validate the name
+    fullname.addEventListener("input", function () {
+        if (!patterns.fullname.test(fullname.value)) {
+            fullname.setCustomValidity("Name should only contain letters and spaces");
+           
+            if(fullname.value.length > 0) {
+                recordError("fullname", "invalidPattern", "Name should only contain letters and spaces");
+            }
+        } else {
+            fullname.setCustomValidity("");
+        }
+    });
+
+    //validate the email
+    email.addEventListener("input", function () {
+        if (!patterns.email.test(email.value)) {
+            email.setCustomValidity("Please enter a valid email address");
+           
+            if(email.value.length > 0) {
+                recordError("email", "invalidPattern", "Please enter a valid email address");
+            }
+        } else {
+            email.setCustomValidity("");
+        }
+    });
+
+    //validate the comment
+    comment.addEventListener("input", function () {
+        if (!patterns.comment.test(comment.value)) {
+            comment.setCustomValidity("Comments should only contain letters, numbers, and basic punctuation");
+            if(comment.value.length > 0) {
+                recordError("comment", "invalidPattern", "Comments should only contain letters, numbers, and basic punctuation");
+            }
+        } else {
+            comment.setCustomValidity("");
+        }
+    });
+
+    
+    function showTemporaryError(message) {
+        errorOutput.textContent = message;
+        errorOutput.style.opacity = 1;
+        errorOutput.style.transition = "opacity 0.5s ease-in-out";
+        
+      
+        setTimeout(function() {
+            errorOutput.style.opacity = 0;
+        }, 2000);
+    }
+
+  
+      form.addEventListener("submit", function (event) {
+       
+        errorOutput.textContent = "";
+        infoOutput.textContent = "";
+        
+    
+        const isValid = form.checkValidity();
+        
+        if (!isValid) {
+            event.preventDefault();
+            
+            
+            const formElements = [fullname, email, comment];
+            const errorMessages = [];
+            
+            formElements.forEach(element => {
+                if (!element.validity.valid) {
+                    errorMessages.push(`${element.id}: ${element.validationMessage}`);
+                    
+                    recordError(element.id, "submissionError", element.validationMessage);
+                }
+            });
+            
+          
+            errorOutput.textContent = errorMessages.join(", ");
+            errorOutput.style.opacity = 1;
+        } else {
+        
+            const errorsJSON = JSON.stringify(form_errors);
+            
+        
+            const hiddenField = document.createElement('input');
+            hiddenField.type = 'hidden';
+            hiddenField.name = 'form-errors';
+            hiddenField.value = errorsJSON;
+            
+          
+            form.appendChild(hiddenField);
+            
+         
+            infoOutput.textContent = "valid form";
+        }
+    });
+
+
+
+    //char counter
+    function updateCharCounter() {
+        const remainingChars = maxLength - comment.value.length;
+        const percentUsed = (comment.value.length / maxLength) * 100;
+        
+        
+        infoOutput.textContent = `Comment: ${remainingChars} characters remaining`;
+        
+       
+        if (percentUsed >= 90) {
+          
+            infoOutput.className = "info critical";
+            infoOutput.style.color = "red";
+            
+        } else if (percentUsed >= 70) {
+            
+            infoOutput.className = "info warning";
+            infoOutput.style.color = "yellow";
+           
+        } else {
+           
+            infoOutput.className = "info";
+            infoOutput.style.color = "green";
+            
+        }
+        
+        
+    }
+
+
+
+    
+    function flashField(element) {
+       
+        const originalColor = window.getComputedStyle(element).backgroundColor;
+        
+       
+        element.style.backgroundColor = "red";
+        
+      
+        setTimeout(function() {
+            element.style.transition = "background-color 0.5s ease-out";
+            element.style.backgroundColor = originalColor;
+            
+           
+            setTimeout(function() {
+                element.style.transition = "";
+            }, 500);
+        }, 200);
+    }
+
+   
+    function addInputMasking(inputElement, pattern, errorMsg) {
+        
+        if (inputElement.tagName.toLowerCase() === 'textarea') {
+            inputElement.addEventListener("input", function(event) {
+                const value = inputElement.value;
+                
+                const testPattern = new RegExp("^" + pattern.source + "*$");
+                
+                
+                if (!testPattern.test(value)) {
+                    
+                    const cursorPos = inputElement.selectionStart;
+                    
+                    
+                    let invalidChar = '';
+                    for (let i = 0; i < value.length; i++) {
+                        if (!pattern.test(value[i])) {
+                            invalidChar = value[i];
+                            break;
+                        }
+                    }
+                    
+                  
+                    const sanitizedValue = value.split('').filter(char => pattern.test(char)).join('');
+                    inputElement.value = sanitizedValue;
+                    
+                
+                    flashField(inputElement);
+                    showTemporaryError(`${errorMsg} - '${invalidChar}' is not allowed`);
+                    
+                  
+                    recordError(inputElement.id, "invalidCharacter", errorMsg, invalidChar);
+                    
+                   
+                    inputElement.setSelectionRange(cursorPos - 1, cursorPos - 1);
+                }
+                
+              
+                if (inputElement.id === 'comment') {
+                    updateCharCounter();
+                }
+            });
+        } else {
+            
+            inputElement.addEventListener("keypress", function(event) {
+                const char = String.fromCharCode(event.charCode);
+                
+              
+                if (!pattern.test(char)) {
+                    event.preventDefault();
+                    flashField(inputElement);
+                    showTemporaryError(errorMsg);
+                    
+                  
+                    recordError(inputElement.id, "invalidCharacter", errorMsg, char);
+                }
+            });
+        }
+
+       
+        inputElement.addEventListener("paste", function(event) {
+            
+            const clipboardData = event.clipboardData || window.clipboardData;
+            const pastedText = clipboardData.getData('text');
+            
+          
+            const testPattern = new RegExp("^" + pattern.source + "+$");
+            
+           
+            if (!testPattern.test(pastedText)) {
+                event.preventDefault();
+                flashField(inputElement);
+                showTemporaryError(errorMsg);
+                
+                
+                recordError(inputElement.id, "invalidPaste", errorMsg, pastedText);
+            }
+        });
+    }
+
+   
+    [fullname, email, comment].forEach(input => {
+        input.addEventListener("input", function() {
+            if (input.validity.valid) {
+                input.classList.add("valid");
+                input.classList.remove("invalid");
+            } else {
+                input.classList.add("invalid");
+                input.classList.remove("valid");
+            }
+            
+           
+            if (input.id === 'comment') {
+          
+                const percentUsed = (input.value.length / maxLength) * 100;
+                
+               
+                input.classList.remove("warning", "critical");
+                
+               
+                if (percentUsed >= 90) {
+                    input.classList.add("critical");
+                    
+                    if (percentUsed >= 100) {
+                        recordError("comment", "maxLengthReached", "Character limit reached in comment field");
+                    }
+                } else if (percentUsed >= 70) {
+                    input.classList.add("warning");
+                }
+            }
+        });
+    });
+    
+    //char counter stuff
+    comment.addEventListener("input", function() {
+        updateCharCounter();
+    });
+    
+    updateCharCounter();
+
+  
+   
+    [fullname, email, comment].forEach(input => {
+        input.addEventListener("blur", function() {
+            if (input.value.trim() === '' && input.required) {
+                recordError(input.id, "emptyRequired", `${input.id} is required but was left empty`);
+            }
+        });
+    });
+
+  
+        
+        function recordError(fieldId, errorType, errorMessage, invalidValue = null) {
+        const timestamp = new Date().toISOString();
+        
+        const errorObj = {
+            timestamp: timestamp,
+            fieldId: fieldId,
+            errorType: errorType,
+            errorMessage: errorMessage,
+            fieldValue: document.getElementById(fieldId).value,
+            invalidValue: invalidValue
+        };
+        
+        form_errors.push(errorObj);
+        console.log("Error recorded:", errorObj);
+    }
+
+   
+
+  const toggleSwitch = document.getElementById("theme-toggle");
+  
+  
+  const currentTheme = localStorage.getItem("theme") || "light";
+  
+  
+  document.documentElement.setAttribute("data-theme", currentTheme);
+  
+  
+  toggleSwitch.checked = currentTheme === "dark";
+  
+ 
+  toggleSwitch.addEventListener("change", function() {
+  const newTheme = toggleSwitch.checked ? "dark" : "light";
+    
+    
+  document.documentElement.setAttribute("data-theme", newTheme);
+    
+    
+  localStorage.setItem("theme", newTheme);
+  });
+
+ 
+});
+
+
+
+
+
+</script>
+<noscript>need js to change background color</noscript>
+<div class="theme-toggle">
+    <label class="toggle-switch" for="theme-toggle">
+      <input type="checkbox" id="theme-toggle">
+      <span class="toggle-slider">
+        <span class="toggle-icon toggle-sun"></span>
+        <span class="toggle-icon toggle-moon"></span>
+      </span>
+    </label>
+  </div>
+
+
+
+
+<body class = "grid">
+    <form action = "https://httpbin.org/post" method = "POST">
+        <fieldset>
+        <section class = box>
+        <label for = "fullname">Full name *</label >
+        </section>
+        <section class = box>
+        <input type = "text" id = "fullname" name = "fullname" minlength="1" maxlength="30" required>
+        </section>
+        <section class = box>
+        <label for = "email">Email *</label>
+        </section>
+        <section class = box>
+        <input type = "email" id = "email" name = "email" minlength="1" maxlength="30" placeholder="you@example.com" required>
+        </section>
+        <section class = box>  
+        <label for = "comment">Comment *</label>
+        </section>
+        <section class = box>
+        <textarea type = "text" id = "comment" name = "comment" minlength="1" maxlength="30"
+         title= "use regular characters for comments please" required></textarea>
+        </section>
+        <p class="note">* All inputs must be filled in</p>
+       
+   
+   
+   
+   
+        </fieldset>
+        <section class = box>
+        <button>submit</button>
+        <input type="hidden" name="possible_bot" value="true"/>
+        <output name="errorOutput" for="fullname email comment" class="error" id="errorOutput"></output>
+        <output name="infoOutput" for="fullname email comment" class="info" id="infoOutput"></output>
+    </section>
+
+
+    </form>
+</body>

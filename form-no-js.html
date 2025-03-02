@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset = "UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIST OF PROJECTS</title>
+    <link rel="Experiencecss" href="Experiencecss.css">
+    <style>
+        @import "Experiencecss.css";
+     
+        </style>
+   
+</head>
+<script>
+  
+   
+
+
+
+</script>
+<body class = "grid">
+    <form action = "https://httpbin.org/post" method = "POST">
+        <fieldset>
+        <section class = box>
+        <label for = "fullname">Full name *</label >
+        </section>
+        <section class = box>
+        <input type = "text" id = "fullname" name = "fullname" minlength="1" maxlength="30" required>
+        </section>
+        <section class = box>
+        <label for = "email">Email *</label>
+        </section>
+        <section class = box>
+        <input type = "email" id = "email" name = "email" minlength="1" maxlength="30" placeholder="you@example.com" required>
+        </section>
+        <section class = box>  
+        <label for = "comment">Comment *</label>
+        </section>
+        <section class = box>
+        <textarea type = "text" id = "comment" name = "comment" minlength="1" maxlength="30"
+        pattern="[A-Za-z0-9.,!? ]+" title= "use regular characters for comments please" required></textarea>
+        </section>
+        <p class="note">* All inputs must be filled in</p>
+       
+   
+   
+   
+   
+        </fieldset>
+        <section class = box>
+        <button>submit</button>
+        <input type="hidden" name="possible_bot" value="true"/>
+        <output name="errorOutput" for="fullname email comment" class="error" id="errorOutput"></output>
+        <output name="infoOutput" for="fullname email comment" class="info" id="infoOutput"></output>
+    </section>
+
+
+    </form>
+</body>

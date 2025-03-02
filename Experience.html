@@ -83,27 +83,30 @@
 
 </body>
 
+
+
+
 <div class ="grid">
 
     <form action = "https://httpbin.org/post" method = "POST">
         <fieldset>
         <section class = box>
-        <label for = "fullname">Full name:</label>
+        <label for = "fullname">Full name:</label >
         </section>
         <section class = box>
-        <input type = "text" id = "fullname" name = "fullname" required>
+        <input type = "text" id = "fullname" name = "fullname" minlength="1" maxlength="30" required>
         </section>
         <section class = box>
         <label for = "email">Email</label>
         </section>
         <section class = box>
-        <input type = "email" id = "email" name = "email" required>
+        <input type = "email" id = "email" name = "email" minlength="1" maxlength="30" required>
         </section>
         <section class = box>   
         <label for = "comment">Comment:</label>
         </section>
         <section class = box>
-        <input type = "text" id = "comment" name = "comment" required>
+        <input type = "text" id = "comment" name = "comment" minlength="1" maxlength="30" required>
         </section>
     
     
