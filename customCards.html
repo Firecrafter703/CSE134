@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIST OF PROJECTS</title>
+    <link rel="Experiencecss" href="Experiencecss.css">
+    <style>
+        @import "Experiencecss.css";
+    </style>
+</head>
+<body id = "projects-container" class="grid">
+      
+    <nav class = "nav">      
+        <a href="index.html">Index</a>   
+    </nav>
+
+     </body>
+    <div>
+        <button type="button" id="loadLocalButton">Load Projects</button>
+        <button type = "button" id = "loadRemoteButton">Load Projects via Remote</button>
+    </div>
+    <div id = "status-message"></div>
+  
+
+<script>
+// Project card component definition
+class projectCard extends HTMLElement {
+    constructor() {
+        super();
+    }
+//Note:the appending here is separate from the html thats being created in the load function.
+    connectedCallback() {
+        const headerText = this.getAttribute('header') || 'HEADER2!';
+        const imageSource = this.getAttribute('image') || 'Capture.JPG';
+        const descriptionSource = this.getAttribute('alt') || 'description';
+        const textDescription = this.getAttribute('p') || 'test';
+        const componentHref = this.getAttribute('href') || 'https://example.com';
+        
+        this.componentHeader = document.createElement('h2');
+        this.componentHeader.textContent = headerText;
+        this.appendChild(this.componentHeader);
+
+        this.componentPicture = document.createElement('picture')
+        const img = document.createElement('img');
+        img.src = imageSource;
+        img.alt = descriptionSource;
+        this.componentPicture.appendChild(img);
+        this.appendChild(this.componentPicture);
+        
+        this.description = document.createElement('p');
+        this.description.textContent = textDescription
+        this.appendChild(this.description);
+        
+        this.componentLink = document.createElement('a');
+        this.componentLink.href = componentHref;
+        this.componentLink.textContent = 'Click Here for more details';
+        this.componentLink.target = '_blank';
+        this.appendChild(this.componentLink);
+    }
+}
+   
+
+customElements.define("project-card", projectCard);
+
+
+const cardData = [
+    {
+        header: "Combat Robot Club",
+        image: "IMG_2535.jpg",
+        alt: "This is a picture of the combat robot I created",
+        p: "Combat robotics club has it so we can compete in a competition for robotics",
+        href: "combatRobot.html"
+    },
+    {
+        header: "Robocar Project",
+        image: "IMG_2814.jpg",
+        alt: "This is a picture of the robocar",
+        p: "Part of my ECE148 class, it has the ability to run autonomous",
+        href: "robocar.html"
+    },
+    {
+        header: "Fleet Science Center StudioXpert",
+        image: "fleet.jpg",
+        alt: "Fleet Science Center logo",
+        p: "StudioXpert Volunteer, I helped with the creation of projects like shrinkable keychains",
+        href: "fleet.html"
+    },
+    {
+        header: "Scripps Ranch High School EasyAsPi",
+        image: "srhs.jpg",
+        alt: "Picture of a building and SRHS",
+        p: "I was a member of EasyAsPi4139, a robotics team.",
+        href: "srhs.html"
+    }
+];
+
+
+
+
+function loadProjectsLocal() {
+    
+    
+    const container = document.getElementById('projects-container');
+    container.innerHTML = ' <nav class = "nav">      <a href="index.html">Index</a>   </nav> <div id="status"></div>';
+    
+    // Try to get projects from localStorage
+    const storedCard = localStorage.getItem('projectCards');
+    
+    
+    
+    let projectData = JSON.parse(storedCard);
+        console.log("Loaded from localStorage:", projectData);
+   
+    projectData.forEach(data => {
+        //<section box>
+        const box = document.createElement('section');
+        box.className = 'box';
+        
+        //<project card>
+        const card = document.createElement('project-card');
+        card.setAttribute('header', data.header);
+        card.setAttribute('image', data.image);
+        card.setAttribute('alt', data.alt);
+        card.setAttribute('p', data.p);
+        card.setAttribute('href', data.href || 'https://example.com');
+        
+        
+        box.appendChild(card);
+        
+        
+        container.appendChild(box);
+    });
+    
+   
+}
+
+function loadProjectsRemote()
+{
+    const container = document.getElementById('projects-container');
+    container.innerHTML = ' <nav class = "nav">      <a href="index.html">Index</a>   </nav> <div id="status"></div>';
+    
+
+    
+let r = new XMLHttpRequest();
+
+r.onreadystatechange = () => {
+  if (r.readyState == XMLHttpRequest.DONE) {
+    console.log(r.responseText);
+    console.log(typeof(r.responseText))
+    console.log(r.responseText.record)
+    
+    //why do we need to be specific about putting the parse in the event listners
+
+    //when we set the request, we dont know when we get the request back.  BUt if we do get the request, ru nthis code
+    //because thats when we can know how to get the informaiton and we can parse it
+    let remoteData = JSON.parse(r.responseText);
+
+    console.log("Loaded from JSONBIN:", remoteData);
+
+
+   remoteData.record.forEach(data => {
+        //<section box>
+        const box = document.createElement('section');
+        box.className = 'box';
+        
+        //<project card>
+        const card = document.createElement('project-card');
+        card.setAttribute('header', data.header);
+        card.setAttribute('image', data.image);
+        card.setAttribute('alt', data.alt);
+        card.setAttribute('p', data.p);
+        card.setAttribute('href', data.href || 'https://example.com');
+        
+        
+        box.appendChild(card);
+        
+        
+        container.appendChild(box);
+    });
+
+
+    
+    
+    
+  }
+
+  
+
+
+};
+    //generually event listners are first
+
+     
+    r.open("GET", "https://api.jsonbin.io/v3/b/67d4d1448960c979a571c925/", true);
+    r.setRequestHeader("X-Master-Key", "$2a$10$Be9.vUJXZwLQMGEpy0EGr.FxXKqx5MYNwJMR7GVosvu12ManxUCjG");
+    r.send();
+
+
+
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    //localStorage method
+    localStorage.setItem('projectCards', JSON.stringify(cardData))
+    document.getElementById('loadLocalButton').addEventListener('click', loadProjectsLocal);
+
+
+    document.getElementById('loadRemoteButton').addEventListener('click', loadProjectsRemote)
+});
+</script>
+</body>
+
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html> 
+<html lang="en">  
+<head>     
+    <meta charset="UTF-8">     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">     
+    <title>CRUD Operations</title>
+    <style>
+      
+    </style>
+</head>  
+
+<body>
+    <div class="container">
+        <h1>CRUD Operations</h1>
+        
+        <div class="box">
+            <label for="fullname">Full name *</label>
+            <input type="text" id="fullname" name="fullname">
+        </div>
+        
+        <div class="box">
+            <button id="createBtn">CREATE</button>
+            <button id="readBtn">READ</button>
+            <button id="updateBtn">UPDATE</button>
+            <button id="deleteBtn">DELETE</button>
+        </div>
+        
+        <div id="statusBox"></div>
+        
+        <h3>Response:</h3>
+        <pre id="responseBox"></pre>
+    </div>
+
+    <script>
+       const statusBox = document.getElementById('statusBox');
+        const responseBox = document.getElementById('responseBox');
+        const fullnameInput = document.getElementById('fullname');
+        
+    
+        function showStatus(message) {
+            statusBox.textContent = message;
+            console.log(message);
+        }
+
+        function showResponse(data) {
+            responseBox.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+        }
+        
+        
+        function createRecord() {
+            showStatus('Creating record...');
+            
+            
+            const data = {
+                fullname: fullnameInput.value || 'No name provided'
+            };
+            
+            
+            fetch('https://httpbin.org/post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                showStatus('Response received with status: ' + response.status);
+                return response.json();
+            })
+            .then(responseData => {
+                showStatus('Record created successfully');
+                showResponse(responseData);
+            })
+            .catch(error => {
+                showStatus('Error: ' + error.message);
+            });
+        }
+        
+        function readRecord() {
+            showStatus('Reading record...');
+            
+            fetch('https://httpbin.org/get?id=' + (fullnameInput.value || 'test'))
+            .then(response => response.json())
+            .then(data => {
+                showStatus('Record read successfully');
+                showResponse(data);
+            })
+            .catch(error => {
+                showStatus('Error: ' + error.message);
+            });
+        }
+        
+        function updateRecord() {
+            showStatus('Updating record...');
+            
+            const data = {
+                fullname: fullnameInput.value || 'Updated name',
+                timestamp: new Date().toISOString()
+            };
+            
+            fetch('https://httpbin.org/put', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                showStatus('Record updated successfully');
+                showResponse(data);
+            })
+            .catch(error => {
+                showStatus('Error: ' + error.message);
+            });
+        }
+        
+        function deleteRecord() {
+            showStatus('Deleting record...');
+            
+            fetch('https://httpbin.org/delete?id=' + (fullnameInput.value || 'test'), {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                showStatus('Record deleted successfully');
+                showResponse(data);
+            })
+            .catch(error => {
+                showStatus('Error: ' + error.message);
+            });
+        }
+        
+       
+        document.getElementById('createBtn').addEventListener('click', createRecord);
+        document.getElementById('readBtn').addEventListener('click', readRecord);
+        document.getElementById('updateBtn').addEventListener('click', updateRecord);
+        document.getElementById('deleteBtn').addEventListener('click', deleteRecord);
+        
+      
+        showStatus('Ready to perform CRUD operations');
+    </script>
+</body>
+</html>

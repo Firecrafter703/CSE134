@@ -1,18 +1,42 @@
 :root[data-v-scope]
 {
-    --color1: white;
+    --color1: rgba(255, 255, 255, 0.936);
     --color2: red;
     --color3: orange;
-    --color4: color-mix(in srgb, blue 80%, black);
+    --color4: darkgoldenrod;
     --color5: purple;
  
 
     
 }
-.a
+
+img
 {
-    color:white
+  width: 60%;
+  max-height: 200px;
+  object-fit: contain;
 }
+
+ul
+{
+    list-style-position: inside;
+    
+}
+
+ul li {
+    
+    text-align:  left;
+  }
+
+  footer {
+    text-align: center;
+    width: 100%;
+    margin-top: 20px; 
+  }
+  
+  footer a {
+    display: inline-block;
+  }
 @font-face {
     font-family: 'firstfont';
     src: url('./font/Sansation_Regular.ttf') format('truetype');
@@ -27,47 +51,31 @@
 
 }
 
-.nav[data-v-scope]
-{
-    text-align: center;
-    background-color:var(--color1,white);
-
-}
-
-.grid[data-v-scope]
-{
-grid-template-columns:85% 15%;
-display: grid;
-background-color: var(--color2, red);
-row-gap: 5px;
-column-gap: 5px;
-padding: 5px;
-border:7px solid var(--color3, magenta)
-
-
-
-
-}
 
 
 @keyframes animation {
-    0%   {background-color: var(--color4, blue);}
-    50%  {
+    0%   {background-color: var(--color4, gold);}
+    25%  {
          background-color: var(--color5, purple);
-         transform: rotate(180deg);
+         transform: rotate(30deg);
         }
-    100% {background-color:var(--color4, blue);}
+    50% {
+            background-color: var(--color5, purple);
+            transform: rotate(-30deg);
+        }
+    
+    100% {background-color:var(--color4, gold);}
   }
 
 .box[data-v-scope]
 {
     border: 2px solid  var(--color5, purple);
-    background-color:var(--color4, blue);
+    background-color:darkgoldenrod;
     overflow: hidden;  
     animation-name: animation;
-    animation-duration: 3s;
+    animation-duration: 5s;
     animation-iteration-count:1;
-    color:white;
+    color:black;
 
 
 
@@ -80,6 +88,53 @@ img
   max-height: 200px;
   object-fit: contain;
 }
+
+
+
+.box
+{
+    background-color: var(--color1, white);
+    place-self:center;
+    text-align:center;
+    font-family: 'firstfont', 'Times New Roman', serif;
+    
+}
+
+
+
+.grid
+{
+grid-template-rows:auto auto auto;
+display: grid;
+background-color: var(--color3,white);
+row-gap: 5px;
+column-gap: 5px;
+padding: 5px;
+
+
+
+
+
+& nav
+{
+    text-align: center;
+    place-self: center;  
+    padding: 10px 20px;
+    background-color: var(--color4, gold);;
+ 
+   
+}
+
+
+
+
+}
+
+.p
+{
+    margin:2000px;
+}
+
 
  /*i pad*/
 

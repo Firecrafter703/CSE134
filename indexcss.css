@@ -1,5 +1,5 @@
 :root {
-    --color1: plum;
+    --color1: graywhite;
     --color2: color-mix(in srgb, purple 40%, white);
     --color3: darkgray;
     --color4: green;
@@ -19,9 +19,23 @@
       "footer";
     grid-template-rows: auto 1fr auto;
     min-height: 100dvh;
-    background-color: #f0e6ba;
+    background-color: var(--color1, white);
     font-family: 'firstfont', Arial, sans-serif;
     
+  }
+
+  details
+  {
+    align-self: auto;
+    text-align: center;
+    width: 100%;
+  }
+
+  details table
+  {
+    align-self: auto;
+    text-align: center;
+    width: 100%;
   }
  
   @font-face {
@@ -40,16 +54,15 @@
     color: white;
   }
  
-  .nav {
-    text-align: center;
-  }
- 
+
   .nav a {
     margin: 0 10px;
     color: white;
     text-decoration: none;
   }
+  
 
+ 
  
   .rotate img {
     max-width: 150px;
@@ -67,30 +80,21 @@
    
   }
 
-  .list {
-    background-color: var(--color1, lavender);
-    text-align: center;
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 8px;
-  }
+
  
-  dl.list {
-    margin: 0;
-    padding: 0;
-    background-color: transparent;
-  }
- 
-  dt {
-    margin-bottom: 10px;
-  }
+
  
 
   footer {
     text-align: center;
     grid-area: footer;
     padding: 15px 0;
-    background-color: #f0e6ba;
+    background-color: white;
+  }
+
+  .nav {
+    text-align: center;
+    background-color:lightblue;
   }
  /*i pad*/
 

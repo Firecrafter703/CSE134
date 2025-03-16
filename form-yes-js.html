@@ -108,51 +108,58 @@
     }
 
   
-      form.addEventListener("submit", function (event) {
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();  // Always prevent default to handle submission via JS
        
         errorOutput.textContent = "";
         infoOutput.textContent = "";
         
-    
         const isValid = form.checkValidity();
         
         if (!isValid) {
-            event.preventDefault();
-            
-            
             const formElements = [fullname, email, comment];
             const errorMessages = [];
             
             formElements.forEach(element => {
                 if (!element.validity.valid) {
                     errorMessages.push(`${element.id}: ${element.validationMessage}`);
-                    
                     recordError(element.id, "submissionError", element.validationMessage);
                 }
             });
             
-          
             errorOutput.textContent = errorMessages.join(", ");
             errorOutput.style.opacity = 1;
         } else {
-        
-            const errorsJSON = JSON.stringify(form_errors);
-            
-        
-            const hiddenField = document.createElement('input');
-            hiddenField.type = 'hidden';
-            hiddenField.name = 'form-errors';
-            hiddenField.value = errorsJSON;
-            
-          
-            form.appendChild(hiddenField);
-            
-         
-            infoOutput.textContent = "valid form";
+            // Create JSON object with form data
+            const formData = {
+                fullname: fullname.value,
+                email: email.value,
+                comment: comment.value,
+                possible_bot: document.querySelector("input[name='possible_bot']").value,
+                form_errors: form_errors
+            };
+
+            // Send data to JSONBin
+            sendToJSONBin(formData);
         }
     });
 
+    function sendToJSONBin(data) {
+       
+     
+        
 
+        
+        fetch('https://api.jsonbin.io/v3/b', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': '$2a$10$Be9.vUJXZwLQMGEpy0EGr.FxXKqx5MYNwJMR7GVosvu12ManxUCjG',
+                'X-Bin-Name': ''
+            },
+            body: JSON.stringify(data)
+        })
+    }
 
     //char counter
     function updateCharCounter() {
