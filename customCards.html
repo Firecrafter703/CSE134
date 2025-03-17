@@ -42,9 +42,15 @@ class projectCard extends HTMLElement {
         this.appendChild(this.componentHeader);
 
         this.componentPicture = document.createElement('picture')
+        
         const img = document.createElement('img');
         img.src = imageSource;
         img.alt = descriptionSource;
+        const source = document.createElement('source');
+        source.srcset = imageSource
+        source.media = "min-width: 200px" //this will be the same for all cards no matter what
+
+        this.componentPicture.appendChild(source)
         this.componentPicture.appendChild(img);
         this.appendChild(this.componentPicture);
         
@@ -67,14 +73,14 @@ customElements.define("project-card", projectCard);
 const cardData = [
     {
         header: "Combat Robot Club",
-        image: "IMG_2535.jpg",
+        image: "combatrobot.jpg",
         alt: "This is a picture of the combat robot I created",
         p: "Combat robotics club has it so we can compete in a competition for robotics",
         href: "combatRobot.html"
     },
     {
         header: "Robocar Project",
-        image: "IMG_2814.jpg",
+        image: "robocar.jpg",
         alt: "This is a picture of the robocar",
         p: "Part of my ECE148 class, it has the ability to run autonomous",
         href: "robocar.html"
@@ -192,7 +198,7 @@ r.onreadystatechange = () => {
     //generually event listners are first
 
      
-    r.open("GET", "https://api.jsonbin.io/v3/b/67d4d1448960c979a571c925/", true);
+    r.open("GET", "https://api.jsonbin.io/v3/b/67d7ad388960c979a5730d78/", true);
     r.setRequestHeader("X-Master-Key", "$2a$10$Be9.vUJXZwLQMGEpy0EGr.FxXKqx5MYNwJMR7GVosvu12ManxUCjG");
     r.send();
 
