@@ -3,8 +3,8 @@
     --color1: rgba(255, 255, 255, 0.936);
     --color2: red;
     --color3: orange;
-    --color4: darkgoldenrod;
-    --color5: purple;
+    --color4: whitesmoke;
+    --color5: gold;
  
 
     
@@ -54,23 +54,23 @@ ul li {
 
 
 @keyframes animation {
-    0%   {background-color: var(--color4, gold);}
+    0%   {background-color: var(--color4, white);}
     25%  {
-         background-color: var(--color5, purple);
+         background-color: var(--color5, gold);
          transform: rotate(30deg);
         }
     50% {
-            background-color: var(--color5, purple);
+            background-color: var(--color5, gold);
             transform: rotate(-30deg);
         }
     
-    100% {background-color:var(--color4, gold);}
+    100% {background-color:var(--color4, white);}
   }
 
 .box[data-v-scope]
 {
     border: 2px solid  var(--color5, purple);
-    background-color:darkgoldenrod;
+    background-color:whitesmoke;
     overflow: hidden;  
     animation-name: animation;
     animation-duration: 5s;
